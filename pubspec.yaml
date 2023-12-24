@@ -1,0 +1,57 @@
+name: dat_delivery
+description: Dat Delivery App.
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.1.4 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  google_fonts: ^4.0.3
+  another_flushbar: ^1.12.30
+  geolocator: ^8.0.1
+  get: ^4.6.5
+  intl: ^0.18.1
+  logger: ^1.4.0
+  lottie: ^2.7.0
+  http: ^0.13.6
+  shared_preferences: ^2.1.0
+  flutter_native_splash: ^2.3.7
+  flutter_slidable: ^3.0.1
+  flutter_screenutil: ^5.9.0
+  internet_connection_checker: ^1.0.0+1
+  cupertino_icons: ^1.0.6
+  # mapbox_polyline_points: ^0.0.5
+  # mapbox_maps_flutter: ^0.4.3
+  # flutter_polyline_points: ^1.0.0
+  # custom_map_markers: ^0.0.2+1
+  # polyline_do: ^0.1.0
+  # dio: ^5.1.2
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
+    - assets/image/
+    - assets/animations/
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/image/background_crop_1000.jpg
+  color_dark: "#121212"
+  image_dark: assets/image/background_crop_1000.jpg
+  android_gravity: fill
+
+  android_12:
+    image: assets/image/background_crop_1000.jpg
+    icon_background_color: "#ffffff"
+    image_dark: assets/image/background_crop_1000.jpg
+    icon_background_color_dark: "#121212"
+    android_gravity: center
+
+  web: false

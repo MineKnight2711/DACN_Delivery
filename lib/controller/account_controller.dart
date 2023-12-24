@@ -39,7 +39,8 @@ class AccountController extends GetxController {
     final prefs = await SharedPreferences.getInstance();
     final jsonString = prefs.getString('current_account') ?? '';
     if (jsonString.isNotEmpty) {
-      return AccountModel.fromJson(jsonDecode(jsonString));
+      accountSession.value = AccountModel.fromJson(jsonDecode(jsonString));
+      return accountSession.value;
     }
     return null;
   }

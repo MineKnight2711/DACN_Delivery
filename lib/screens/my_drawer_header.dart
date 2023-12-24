@@ -1,22 +1,23 @@
+import 'package:dat_delivery/config/font.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyDrawerHeader extends StatelessWidget {
-  final String avatarImageUrl;
   final String name;
   final String email;
-
+  final ImageProvider<Object>? imageAvatar;
   const MyDrawerHeader({
     Key? key,
-    required this.avatarImageUrl,
     required this.name,
     required this.email,
+    required this.imageAvatar,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return DrawerHeader(
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 243, 114, 63),
+      decoration: const BoxDecoration(
+        color: Color.fromARGB(255, 243, 114, 63),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,25 +25,12 @@ class MyDrawerHeader extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 30,
-            backgroundImage: AssetImage(avatarImageUrl),
+            backgroundImage: imageAvatar,
           ),
-          SizedBox(height: 8),
-          Text(
-            name,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(height: 4),
-          Text(
-            email,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 14,
-            ),
-          ),
+          SizedBox(height: 8.w),
+          Text(name, style: CustomFonts.customGoogleFonts(fontSize: 16.r)),
+          SizedBox(height: 4.w),
+          Text(email, style: CustomFonts.customGoogleFonts(fontSize: 16.r)),
         ],
       ),
     );

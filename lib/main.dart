@@ -1,3 +1,4 @@
+import 'package:dat_delivery/controller/main_controllers.dart';
 import 'package:dat_delivery/screens/slpash_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-  // MainController.initializeControllers();
+  MainController.initializeControllers();
 
   runApp(
     const ScreenUtilInit(

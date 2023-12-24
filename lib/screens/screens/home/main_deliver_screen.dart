@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:dat_delivery/config/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -19,7 +20,7 @@ class _OnboardingScreenState extends State<MainDeliveryScreen> {
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 243, 114, 63),
+      backgroundColor: AppColors.orange100,
       body: Stack(
         children: [
           CustomPaint(

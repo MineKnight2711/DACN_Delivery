@@ -23,20 +23,6 @@ class AccountApi {
     return responseBase;
   }
 
-  Future<ResponseBaseModel> verifiedEmail(String email, String idToken) async {
-    final verifiedResponse = await http.post(
-      Uri.parse("${ApiUrl.apiVerifiedEmail}?email=$email&idToken=$idToken"),
-    );
-    ResponseBaseModel responseBase = ResponseBaseModel();
-    if (verifiedResponse.statusCode == 200) {
-      responseBase = ResponseBaseModel.fromJson(
-          jsonDecode(utf8.decode(verifiedResponse.bodyBytes)));
-      return responseBase;
-    }
-    responseBase.message = 'ConnectError';
-    return responseBase;
-  }
-
   Future<ResponseBaseModel> signout(String userId) async {
     final signOutResponse = await http.post(
       Uri.parse("${ApiUrl.apiSignOut}/$userId"),

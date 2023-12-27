@@ -17,47 +17,13 @@ class ApiUrl {
   ///// Api của Đạt-------------------------------------------------
   static const apiCreateAccount = '${baseUrl}account';
   static const apiAccountVoucher = '${baseUrl}voucher-account';
-  // static const apiCreateAccount = '${baseUrl}account';
   static const apiUpdateAccount = '${baseUrl}account/update-account';
   static const apiGetAccountWithEmail = '${baseUrl}account/get-by-email';
   static const apiSignUpWithFireBase = '${baseUrl}account/create-user';
   static const apiSignInWithFireBase = '${baseUrl}account/sign-in';
   static const apiSignOut = '${baseUrl}account/sign-out';
   static const apiVerifiedEmail = '${baseUrl}account/get-user-info';
-  static const apiChangeEmail = '${baseUrl}account/change-email';
-  static const apiGetAllCategory = '${baseUrl}category';
-  static const apiDish = '${baseUrl}dish/with-favorite';
-  static const apiGetDishesByCategoryID = '${baseUrl}dish/get-by-categoryId';
-  static const apiSearchDish = '${baseUrl}dish/search-dish-by-name';
-  static const apiPayment = '${baseUrl}payment';
-  static const apiTransaction = '${baseUrl}transaction';
-  static const apiTransactionVietQR = '$apiTransaction/VietQR-PAYOS';
-  static const apiTransactionCOD = '$apiTransaction/COD';
-  static const apiTransactionUpdate = '$apiTransaction/update';
-  static const apiTransactionCancel = '$apiTransaction/cancel';
-  static const apiFavorite = '${baseUrl}favorite';
-  static const apiGetListFavorite = '$apiFavorite/get-by-accountId';
-  static const apiVoucher = '${baseUrl}voucher';
-  static const apiGetAllVoucher = '$apiVoucher/all';
-  // static const apiFindAccountById = '${baseUrl}account';
-  // static const apiChangePassword = '${baseUrl}account';
-  // static const apiForgotPassword = '${baseUrl}account/reset-password';
-  // static const apiGetProductById = '${baseUrl}product/getById';
-  // static const apiGetProductDetailsById = '${baseUrl}productDetail/getById';
-  static const apiOrder = '${baseUrl}order';
-  static const apiOrderByStatus = '$apiOrder/get-by-orderState';
-  static const apiRateOrder = '$apiOrder/rate';
+  static const apiGetDelivery = '${baseUrl}delivery/get-by-accountId';
   static const apiCart = '${baseUrl}cart';
   static const apiClearCart = '$apiCart/delete-many-cart';
-
-  // static const apiUpdateCart = '${baseUrl}cart/update';
-
-  // static const apiUpdateFingerPrintAuthen = '${baseUrl}account/fingerprint';
-  static const apiAddress = '${baseUrl}address';
-
-  // static const apiDeleteAddress = '${baseUrl}address/delete';
-  // static const apiGetAllReview = '${baseUrl}review';
-  // static const apiCreateReview = '${baseUrl}review/create';
-  static const apiChangeImage = '${baseUrl}account/update-image';
-  // static const apiGetAndFetchAllOrder = '${baseUrl}order/testGetOrder';
 }

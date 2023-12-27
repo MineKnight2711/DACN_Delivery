@@ -3,7 +3,7 @@ import 'package:dat_delivery/screens/slpash_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-
+  await initializeDateFormatting('vi_VN', null);
   MainController.initializeControllers();
 
   runApp(

@@ -1,11 +1,11 @@
 import 'package:dat_delivery/config/font.dart';
 import 'package:dat_delivery/controller/account_controller.dart';
+import 'package:dat_delivery/controller/order_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../my_drawer_header.dart';
-import '../login/login_screen.dart';
 import '../order/order_screen.dart';
 import '../settings/settings_screen.dart';
 import 'main_deliver_screen.dart';
@@ -63,11 +63,10 @@ class MyDrawer extends StatelessWidget {
               style: CustomFonts.customGoogleFonts(fontSize: 14.r),
             ),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => OrderManagementScreen()),
-              );
+              final orderController = Get.put(OrderController());
+              orderController.getDeliverOrder(
+                  "${accountController.accountSession.value?.accountID}");
+              Get.to(const OrderManagementScreen());
             },
           ),
           ListTile(

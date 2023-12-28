@@ -26,6 +26,32 @@ class OrderDetailsBottomSheet extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const OrderDetailsBottomSheetHeader(),
+        Padding(
+          padding: EdgeInsets.only(left: 10.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Mã đơn hàng",
+                textAlign: TextAlign.center,
+                style: CustomFonts.customGoogleFonts(
+                  fontSize: 14.r,
+                  color: AppColors.dark20,
+                ),
+              ),
+              SizedBox(
+                height: 5.h,
+              ),
+              Text(
+                "${order?.orderID}",
+                textAlign: TextAlign.center,
+                style: CustomFonts.customGoogleFonts(
+                  fontSize: 16.r,
+                ),
+              ),
+            ],
+          ),
+        ),
         Divider(
           height: 30.h,
           thickness: 3.h,
@@ -36,7 +62,7 @@ class OrderDetailsBottomSheet extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Chi tiết đơn hàng",
+                "Trạng thái đơn hàng",
                 textAlign: TextAlign.center,
                 style: CustomFonts.customGoogleFonts(
                   fontSize: 14.r,

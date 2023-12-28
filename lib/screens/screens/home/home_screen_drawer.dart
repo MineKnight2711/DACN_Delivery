@@ -1,6 +1,7 @@
 import 'package:dat_delivery/config/font.dart';
 import 'package:dat_delivery/controller/account_controller.dart';
 import 'package:dat_delivery/controller/order_controller.dart';
+import 'package:dat_delivery/screens/screens/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -10,9 +11,9 @@ import '../order/order_screen.dart';
 import '../settings/settings_screen.dart';
 import 'main_deliver_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreenDrawer extends StatelessWidget {
   final accountController = Get.find<AccountController>();
-  HomeScreen({super.key});
+  HomeScreenDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -64,8 +65,7 @@ class MyDrawer extends StatelessWidget {
             ),
             onTap: () {
               final orderController = Get.put(OrderController());
-              orderController.getDeliverOrder(
-                  "${accountController.accountSession.value?.accountID}");
+              orderController.getDeliverOrder();
               Get.to(const OrderManagementScreen());
             },
           ),
@@ -82,8 +82,11 @@ class MyDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.logout_outlined),
             title: const Text('Logout'),
-            onTap: () {
-              accountController.logOut();
+            onTap: () async {
+              await accountController.logOut().whenComplete(() => Get.offAll(
+                  LoginScreen(),
+                  transition: Transition.fadeIn,
+                  duration: const Duration(seconds: 1)));
             },
           ),
         ],

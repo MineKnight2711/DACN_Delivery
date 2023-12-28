@@ -7,6 +7,5 @@ class MainController {
   static initializeControllers() async {
     Get.put(AccountController());
     Get.put(LoginController());
-    Get.put(OrderController());
   }
 }

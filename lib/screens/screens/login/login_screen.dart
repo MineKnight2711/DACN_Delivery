@@ -2,8 +2,9 @@
 
 import 'package:dat_delivery/config/font.dart';
 import 'package:dat_delivery/controller/login_controller.dart';
-import 'package:dat_delivery/screens/screens/home/home_screen.dart';
+import 'package:dat_delivery/screens/screens/home/home_screen_drawer.dart';
 import 'package:dat_delivery/utils/custom_snackbar.dart';
+import 'package:dat_delivery/utils/no_glowing_scrollview.dart';
 import 'package:dat_delivery/utils/transition_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,8 +17,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox(
-        height: 1.sh,
+      body: NoGlowingScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -118,7 +118,7 @@ class LoginScreen extends StatelessWidget {
                         duration: 2,
                         isShowOnTop: false,
                         type: FlushbarType.success);
-                    Get.to(() => HomeScreen());
+                    Get.to(() => HomeScreenDrawer());
                   } else {
                     CustomSnackBar.showCustomSnackBar(
                         context, "Đăng nhập thất bại",

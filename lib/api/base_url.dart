@@ -26,4 +26,8 @@ class ApiUrl {
   static const apiGetDelivery = '${baseUrl}delivery/get-by-accountId';
   static const apiCart = '${baseUrl}cart';
   static const apiClearCart = '$apiCart/delete-many-cart';
+
+  static const apiUpdateOrder = '${baseUrl}order/update-order-status';
+
+  static var apiCompleteDelivery = '${baseUrl}delivery/complete-delivery';
 }

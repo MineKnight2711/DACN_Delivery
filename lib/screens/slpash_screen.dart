@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
-import 'screens/home/home_screen.dart';
+import 'screens/home/home_screen_drawer.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -45,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
       return Timer(
         const Duration(seconds: 2),
         () => Get.offAll(
-          HomeScreen(),
+          HomeScreenDrawer(),
           transition: Transition.fadeIn,
           duration: const Duration(
             milliseconds: 1000,

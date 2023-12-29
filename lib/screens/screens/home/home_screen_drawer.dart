@@ -8,12 +8,12 @@ import 'package:get/get.dart';
 
 import '../../my_drawer_header.dart';
 import '../order/order_screen.dart';
-import '../settings/settings_screen.dart';
+
 import 'main_deliver_screen.dart';
 
-class HomeScreenDrawer extends StatelessWidget {
+class MainScreen extends StatelessWidget {
   final accountController = Get.find<AccountController>();
-  HomeScreenDrawer({super.key});
+  MainScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -67,16 +67,6 @@ class MyDrawer extends StatelessWidget {
               final orderController = Get.put(OrderController());
               orderController.getDeliverOrder();
               Get.to(const OrderManagementScreen());
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.settings_outlined),
-            title: const Text('Settings'),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => SettingsScreen()),
-              );
             },
           ),
           ListTile(

@@ -45,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
       return Timer(
         const Duration(seconds: 2),
         () => Get.offAll(
-          HomeScreenDrawer(),
+          MainScreen(),
           transition: Transition.fadeIn,
           duration: const Duration(
             milliseconds: 1000,

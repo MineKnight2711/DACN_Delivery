@@ -98,97 +98,11 @@ class _OnboardingScreenState extends State<MainDeliveryScreen> {
               ],
             ),
           ),
-
-          // Obx(
-          //   () {
-          //     if (mapController.isShow.value) {
-          //       return Container(
-          //         height: 120,
-          //         margin: const EdgeInsets.only(top: 80, left: 20, right: 20),
-          //         decoration: BoxDecoration(
-          //             borderRadius: BorderRadius.circular(10),
-          //             color: Colors.white),
-          //         child: ListAddress(mapController: mapController),
-          //       );
-          //     }
-          //     return const SizedBox.shrink();
-          //   },
-          // ),
-          // //Text field địa chỉ
-          // Container(
-          //   height: 70.h,
-          //   alignment: Alignment.topLeft,
-          //   margin: const EdgeInsets.only(top: 30),
-          //   padding: const EdgeInsets.symmetric(horizontal: 20),
-          //   child: AddressTextField(
-          //     bgColor: AppColors.white100,
-          //     hintText: "Mời nhập địa chỉ",
-          //     controller: mapController.searchController,
-          //     onChanged: (text) async {
-          //       if (text != null && text.isNotEmpty) {
-          //         mapController.searchText.value = text;
-          //         await mapController.predictLocation(text);
-          //       } else {
-          //         mapController.isShow.value = false;
-          //         mapController.isHidden.value = true;
-          //       }
-          //     },
-          //   ),
-          // ),
-
-          // Obx(
-          //   () {
-          //     if (!mapController.isHidden.value &&
-          //         mapController.selectedLocation.value != null) {
-          //       return AddressInfo(
-          //         onChooseAddress: (selectedLocation) {
-          //           if (onChooseAddress != null) {
-          //             onChooseAddress!(selectedLocation);
-          //           }
-          //         },
-          //         location: mapController.selectedLocation.value!,
-          //       );
-          //     }
-          //     return const SizedBox.shrink();
-          //   },
-          // ),
         ],
       ),
     );
   }
 }
-
-// class ArcPainter extends CustomPainter {
-//   @override
-//   void paint(Canvas canvas, Size size) {
-//     Path orangeArc = Path()
-//       ..moveTo(0, 0)
-//       ..lineTo(0, size.height - 170)
-//       ..quadraticBezierTo(
-//           size.width / 2, size.height, size.width, size.height - 170)
-//       ..lineTo(size.width, size.height)
-//       ..lineTo(size.width, 0)
-//       ..close();
-
-//     canvas.drawPath(orangeArc, Paint()..color = Colors.orange);
-
-//     Path whiteArc = Path()
-//       ..moveTo(0.0, 0.0)
-//       ..lineTo(0.0, size.height - 185)
-//       ..quadraticBezierTo(
-//           size.width / 2, size.height - 70, size.width, size.height - 185)
-//       ..lineTo(size.width, size.height)
-//       ..lineTo(size.width, 0)
-//       ..close();
-
-//     canvas.drawPath(whiteArc, Paint()..color = Colors.white);
-//   }
-
-//   @override
-//   bool shouldRepaint(covariant CustomPainter oldDelegate) {
-//     return false;
-//   }
-// }
 
 class MapNavigateButton extends StatelessWidget {
   final Function()? onPressed;
@@ -219,37 +133,3 @@ class MapNavigateButton extends StatelessWidget {
     );
   }
 }
-
-// class _DotIndicator extends StatelessWidget {
-//   final bool isSelected;
-
-//   const _DotIndicator({Key? key, required this.isSelected}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: const EdgeInsets.only(right: 6.0),
-//       child: AnimatedContainer(
-//         duration: const Duration(milliseconds: 300),
-//         height: 6.0,
-//         width: 6.0,
-//       ),
-//     );
-//   }
-// }
-
-// class OnboardingModel {
-//   final String lottieFile;
-//   final String title;
-//   final String subtitle;
-
-//   OnboardingModel(this.lottieFile, this.title, this.subtitle);
-// }
-
-// List<OnboardingModel> tabs = [
-//   OnboardingModel(
-//     'assets/delivery.json',
-//     'Xin chào huynhphuocdat2 !',
-//     'Hãy bắt đầu vận chuyển các đơn hàng nhé,\n khách hàng đang hóng bạn tới lắm ! \n Đến ngay nào hihi... ',
-//   ),
-// ];

@@ -1,7 +1,3 @@
-import 'dart:convert';
-import 'dart:typed_data';
-import 'dart:ui' as ui;
-
 import 'package:dat_delivery/api/map_api.dart';
 import 'package:dat_delivery/config/colors.dart';
 import 'package:dat_delivery/model/map/location_model.dart';
@@ -58,7 +54,6 @@ class MapController extends GetxController {
   }
 
   void zoomIn() {
-    print("Zoom level $zoomLevel");
     zoomLevel.value++;
     mapboxMap.value?.flyTo(
         CameraOptions(
@@ -70,7 +65,6 @@ class MapController extends GetxController {
   }
 
   void zoomOut() {
-    print("Zoom level $zoomLevel");
     zoomLevel.value--;
     mapboxMap.value?.flyTo(
         CameraOptions(
@@ -174,10 +168,7 @@ class MapController extends GetxController {
   }
 
   void centerCameraOnCoordinate(double lat, double longLat) {
-    if (pointManager.value != null) {
-      mapboxMap.value?.annotations.removeAnnotationManager(pointManager.value!);
-    }
-
+    resetPointAndPolyline();
     mapboxMap.value?.setCamera(CameraOptions(
         center: Point(
           coordinates: Position(longLat, lat),
@@ -217,38 +208,17 @@ class MapController extends GetxController {
     if (response.message == "Success") {
       Directions directions = Directions.fromJson(response.data);
       final firstResult = directions.routes[0].legs[0];
-      centerCameraOnCoordinate(
-          firstResult.start_location.lat, firstResult.start_location.lng);
-      if (pointManager.value != null) {
-        mapboxMap.value?.annotations
-            .removeAnnotationManager(pointManager.value!);
-      }
-      // mapboxMap.value?.annotations
-      //     .createPointAnnotationManager()
-      //     .then((pointAnnotationManager) async {
-      //   pointManager.value = pointAnnotationManager;
-      //   final ByteData bytes =
-      //       await rootBundle.load('assets/image/location_64.png');
-      //   final Uint8List imageData = bytes.buffer.asUint8List();
-      //   var options = <PointAnnotationOptions>[];
-      //   for (var step in firstResult.steps) {
-      //     options.add(PointAnnotationOptions(
-      //         geometry: Point(
-      //                 coordinates: Position(
-      //                     step.start_location.lng, step.start_location.lat))
-      //             .toJson(),
-      //         image: imageData));
-      //   }
-      //   pointAnnotationManager.createMulti(options);
-      // });
+
+      createEndAndStartPoints(
+          firstResult.start_location.lat,
+          firstResult.start_location.lng,
+          firstResult.end_location.lat,
+          firstResult.end_location.lng);
       mapboxMap.value?.annotations
           .createPolylineAnnotationManager()
           .then((polylineAnnotationManager) async {
         polylineManager.value = polylineAnnotationManager;
-        // final ByteData bytes =
-        //     await rootBundle.load('assets/image/location_64.png');
-        // final Uint8List imageData = bytes.buffer.asUint8List();
-        // var options = <PolylineAnnotationOptions>[];
+
         final positions = <List<Position>>[];
 
         for (var step in firstResult.steps) {
@@ -267,6 +237,115 @@ class MapController extends GetxController {
                 lineWidth: 3))
             .toList());
       });
+      centerCameraOnCoordinate(
+          firstResult.start_location.lat, firstResult.start_location.lng);
     }
+  }
+
+  void createEndAndStartPoints(
+      double startLat, double startLng, double endLat, double endLng) {
+    resetPointAndPolyline();
+    mapboxMap.value?.annotations
+        .createPointAnnotationManager()
+        .then((pointAnnotationManager) async {
+      pointManager.value = pointAnnotationManager;
+      List<Position> postions = [];
+      postions.add(Position(startLat, startLng));
+      postions.add(Position(endLat, endLng));
+      final postionOptions = <PointAnnotationOptions>[];
+      final ByteData bytes =
+          await rootBundle.load('assets/image/location_64.png');
+      final Uint8List imageData = bytes.buffer.asUint8List();
+      for (Position p in postions) {
+        postionOptions.add(PointAnnotationOptions(
+            geometry: Point(coordinates: p).toJson(), image: imageData));
+      }
+      pointAnnotationManager.createMulti(postionOptions);
+    });
+  }
+
+  Future<String> getOrderAddressLatitude(String address) async {
+    final response = await _mapApi.getAddressLatitude(address);
+    if (response.message == "Success") {
+      LocationByLatitudeResponse location =
+          LocationByLatitudeResponse.fromJson(response.data);
+      final firstResult = location.results[0];
+
+      drawLineBetweenTwoPoints(
+          firstResult.geometry.location.lat, firstResult.geometry.location.lng);
+    }
+    return response.message ?? "";
+  }
+
+  void resetPointAndPolyline() {
+    if (pointManager.value != null) {
+      mapboxMap.value?.annotations.removeAnnotationManager(pointManager.value!);
+    }
+    if (polylineManager.value != null) {
+      mapboxMap.value?.annotations
+          .removeAnnotationManager(polylineManager.value!);
+    }
+  }
+
+  void createEndPoint(double lat, double lng) {
+    mapboxMap.value?.annotations
+        .createPointAnnotationManager()
+        .then((pointAnnotationManager) async {
+      pointManager.value = pointAnnotationManager;
+      final ByteData bytes =
+          await rootBundle.load('assets/image/location_64.png');
+      final Uint8List imageData = bytes.buffer.asUint8List();
+
+      pointAnnotationManager.create(PointAnnotationOptions(
+          iconSize: 1.5,
+          image: imageData,
+          geometry: Point(coordinates: Position(lng, lat)).toJson()));
+    });
+  }
+
+  void drawLineBetweenTwoPoints(double lat, double lng) async {
+    gpi.Position? currentPostion = await getCurrentPositionForDelivery();
+    if (currentPostion != null) {
+      createEndAndStartPoints(
+          currentPostion.latitude, currentPostion.longitude, lat, lng);
+      mapboxMap.value?.annotations
+          .createPolylineAnnotationManager()
+          .then((polylineAnnotationManager) async {
+        polylineManager.value = polylineAnnotationManager;
+        List<Position> positions = [];
+
+        positions.add(Position(lng, lat));
+        positions
+            .add(Position(currentPostion.longitude, currentPostion.latitude));
+
+        polylineAnnotationManager.create(PolylineAnnotationOptions(
+            geometry: LineString(coordinates: positions).toJson(),
+            lineColor: AppColors.orange100.value,
+            lineWidth: 3));
+      });
+    }
+  }
+
+  Future<gpi.Position?> getCurrentPositionForDelivery() async {
+    geolocator.LocationPermission permission =
+        await geolocator.Geolocator.checkPermission();
+    if (permission == geolocator.LocationPermission.deniedForever) {
+    } else if (permission == geolocator.LocationPermission.denied) {
+      geolocator.LocationPermission requestPermission =
+          await geolocator.Geolocator.requestPermission();
+      if (requestPermission == geolocator.LocationPermission.deniedForever) {
+        return null;
+      }
+    } else if (permission == geolocator.LocationPermission.whileInUse ||
+        permission == geolocator.LocationPermission.always) {
+      gpi.Position position = await geolocator.Geolocator.getCurrentPosition(
+          desiredAccuracy: geolocator.LocationAccuracy.high);
+      Position getPositon = Position(position.longitude, position.latitude);
+      centerCameraOnCoordinate(
+          getPositon.lat.toDouble(), getPositon.lng.toDouble());
+      return position;
+    }
+
+    return null;
   }
 }

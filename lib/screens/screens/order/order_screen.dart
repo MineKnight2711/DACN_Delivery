@@ -1,6 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:dat_delivery/controller/map_controller.dart';
 import 'package:dat_delivery/controller/order_controller.dart';
+import 'package:dat_delivery/screens/screens/home/home_screen_drawer.dart';
 import 'package:dat_delivery/screens/screens/order/components/delivery_item.dart';
 import 'package:dat_delivery/utils/custom_message.dart';
 import 'package:dat_delivery/utils/custom_snackbar.dart';
@@ -8,7 +10,6 @@ import 'package:dat_delivery/utils/no_glowing_scrollview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 
 class OrderManagementScreen extends StatefulWidget {
   const OrderManagementScreen({super.key});
@@ -21,11 +22,11 @@ class _OrderManagementScreenState extends State<OrderManagementScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   final orderController = Get.find<OrderController>();
+  final mapController = Get.find<MapController>();
   void onChangedtabListener() {
     _tabController.addListener(() {
       if (!_tabController.indexIsChanging) {
         int index = _tabController.index;
-        print(orderController.tabs[index]);
         orderController.getOrderByStatus(orderController.tabs[index]);
       }
     });
@@ -103,6 +104,15 @@ class _OrderManagementScreenState extends State<OrderManagementScreen>
                                                         isShowOnTop: false,
                                                         type: FlushbarType
                                                             .success);
+                                                Get.to(
+                                                  MainScreen(),
+                                                );
+                                                Future.delayed(
+                                                  const Duration(seconds: 1),
+                                                  () => mapController
+                                                      .getOrderAddressLatitude(
+                                                          "${order.details?.order?.deliveryInfo?.split("|")[0]}"),
+                                                );
                                               } else {
                                                 CustomSnackBar.showCustomSnackBar(
                                                     context,
@@ -187,7 +197,6 @@ class _OrderManagementScreenState extends State<OrderManagementScreen>
                                 children: orderController.listDeliveredDetails
                                     .map((order) => DeliveryItem(
                                           buttonTitle: "Báo cáo",
-                                          onPressed: () {},
                                           delivery: order,
                                         ))
                                     .toList());

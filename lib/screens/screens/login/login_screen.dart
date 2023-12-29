@@ -19,9 +19,12 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       body: NoGlowingScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          // crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(
+              height: 100.h,
+            ),
             Image.asset(
               "assets/bg-login.jpg",
               width: 320,
@@ -84,6 +87,7 @@ class LoginScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: TextFormField(
+                obscureText: true,
                 controller: loginController.txtPassword,
                 decoration: const InputDecoration(
                   border: InputBorder.none,
@@ -118,7 +122,7 @@ class LoginScreen extends StatelessWidget {
                         duration: 2,
                         isShowOnTop: false,
                         type: FlushbarType.success);
-                    Get.to(() => HomeScreenDrawer());
+                    Get.to(() => MainScreen());
                   } else {
                     CustomSnackBar.showCustomSnackBar(
                         context, "Đăng nhập thất bại",
@@ -127,15 +131,12 @@ class LoginScreen extends StatelessWidget {
                         type: FlushbarType.failure);
                   }
                 },
-                child: const Padding(
-                  padding: EdgeInsets.all(18),
-                  child: Text(
-                    "LOGIN",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
+                child: const Text(
+                  "LOGIN",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),

@@ -226,8 +226,10 @@ class OrderDetailsBottomSheet extends StatelessWidget {
               Container(
                 alignment: Alignment.center,
                 height: 50.h,
-                child: RoundIconButton(
-                    size: 80.r, title: buttonTitle, onPressed: onPressed),
+                child: onPressed != null
+                    ? RoundIconButton(
+                        size: 80.r, title: buttonTitle, onPressed: onPressed)
+                    : const Card(),
               ),
             ],
           ),

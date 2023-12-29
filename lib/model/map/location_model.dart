@@ -40,7 +40,6 @@ class Result {
     required this.compound,
   });
   factory Result.fromJson(Map<String, dynamic> json) {
-    print(json['compound']);
     return Result(
         formattedAddress: json['formatted_address'] as String,
         name: json['name'] as String,
